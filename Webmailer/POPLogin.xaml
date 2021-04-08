@@ -1,0 +1,24 @@
+﻿<Window x:Class="Webmailer.FormLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:Webmailer"
+        mc:Ignorable="d"
+        Title="Login" Height="91.596" Width="200" Background="Silver" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <sys:String x:Key="userName">""</sys:String>
+        <sys:String x:Key="login">""</sys:String>
+    </Window.Resources>
+
+    <Grid Margin="0,0,0,0">
+        <TextBlock x:Name="textBlock" Height="20" TextWrapping="Wrap" Text="User" VerticalAlignment="Top" Margin="3,0,119,0"/>
+        <TextBox x:Name="textBox_user" HorizontalAlignment="Left" Height="20" Margin="80,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="111"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="3,20,0,0" TextWrapping="Wrap" Text="Mot de passe" VerticalAlignment="Top" Width="72" Height="20"/>
+        <PasswordBox x:Name="textBox_login" HorizontalAlignment="Left" Height="20" Margin="80,20,0,0" VerticalAlignment="Top" Width="111"/>
+        <Button x:Name="button_cancel" Content="Cancel" HorizontalAlignment="Left" Margin="3,45,0,0" VerticalAlignment="Top" Width="72" Height="20" Click="button_cancel_Click"/>
+        <Button x:Name="button_valider" Content="Valider" HorizontalAlignment="Left" Margin="80,45,0,0" VerticalAlignment="Top" Width="111" Height="20" Click="button_valider_Click"/>
+    </Grid>
+</Window>

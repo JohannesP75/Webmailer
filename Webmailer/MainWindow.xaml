@@ -1,0 +1,98 @@
+﻿<Window x:Class="Webmailer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:Webmailer"
+        mc:Ignorable="d"
+        Title="Webmailer" Height="350" Width="525" Background="Silver" ResizeMode="NoResize">
+
+
+    <Window.Resources>
+        <sys:Int32 x:Key="defaultSMTPPort">50</sys:Int32>
+        <sys:Int32 x:Key="defaultPOPPort">110</sys:Int32>
+        <sys:String x:Key="boutonConnection">Connexion</sys:String>
+        <sys:String x:Key="boutonDeconnection">Déconnexion</sys:String>
+        <sys:Boolean x:Key="isSMTPConnected">false</sys:Boolean>
+        <sys:Boolean x:Key="isPOPConnected">false</sys:Boolean>
+        <local:ComboBoxPort x:Key="POPPort"/>
+        <local:ComboBoxPort x:Key="SMTPPort"/>
+
+        <x:Array x:Key="SMTPPortString" Type="local:ComboBoxPort">
+            <local:ComboBoxPort ValueString = "Sans chiffrement" ValuePort="25" />
+            <local:ComboBoxPort ValueString = "Avec chiffrement" ValuePort="587" />
+            <local:ComboBoxPort ValueString = "SSL" ValuePort="465" />
+            <local:ComboBoxPort ValueString = "TLS" ValuePort="587" />
+        </x:Array>
+
+        <x:Array x:Key="POPPortString" Type="local:ComboBoxPort">
+            <local:ComboBoxPort ValueString = "Sans chiffrement" ValuePort="110" />
+            <local:ComboBoxPort ValueString = "SSL" ValuePort="995" />
+        </x:Array>
+
+        <DataTemplate x:Key="MailListTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{Binding Item.UID}" />
+                <TextBlock Text="{Binding Item.auteur}" />
+                <TextBlock Text="{Binding Item.sujet}" />
+                <TextBlock Text="{Binding Item.date}" />
+                <TextBlock Text="{Binding Item.taille}" />
+            </Grid>
+        </DataTemplate>
+        <local:BooleanInverter x:Key="Inverter"/>
+    </Window.Resources>
+
+    <DockPanel>
+        <StackPanel Margin="0,0,0,0" >
+            <TabControl x:Name="tabControl" Height="323" Width="519">
+                <TabItem Header="SMTP">
+                    <Grid Margin="0,0,0,0">
+                        <TextBlock x:Name="textBlock2" TextWrapping="Wrap" Text="@ serveur" Margin="10,5,394,264"/>
+                        <TextBox x:Name="addr_serv_smtp" HorizontalAlignment="Left" Height="21" Margin="118,5,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.356,0.484"/>
+                        <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="@ expéditeur" Width="100" Margin="10,26,399,247" RenderTransformOrigin="0.5,0.882"/>
+                        <TextBox x:Name="addr_expe_smtp" IsEnabled="{DynamicResource ResourceKey=isSMTPConnected}" Margin="118,26,291,247"/>
+                        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,44,0,0" TextWrapping="Wrap" Text="@ destinataire" VerticalAlignment="Top" Height="18" Width="105"/>
+                        <TextBox x:Name="addr_dest_smtp" IsEnabled="{DynamicResource ResourceKey=isSMTPConnected}" HorizontalAlignment="Left" Height="18" Margin="118,44,0,0" VerticalAlignment="Top" Width="100"/>
+                        <TextBox x:Name="mail_subject_SMTP" HorizontalAlignment="Left" Height="18" IsEnabled="{DynamicResource ResourceKey=isSMTPConnected}" Margin="118,67,0,0" VerticalAlignment="Top" Width="301"/>
+                        <ComboBox x:Name="comboBox_PortSMTP" HorizontalAlignment="Left" Margin="299,5,0,0" ItemsSource="{StaticResource SMTPPortString}" SelectedValuePath="ValuePort" DisplayMemberPath="ValueString" SelectedValue="{Binding typePortSMTP}" VerticalAlignment="Top" Width="120" Height="21" IsEditable="True" IsReadOnly="True" SelectedIndex="0" />
+                        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="260,10,0,0" TextWrapping="Wrap" Text="Port" VerticalAlignment="Top" Height="16" Width="41"/>
+                        <TextBox x:Name="box_mail_SMTP" HorizontalAlignment="Left" IsEnabled="{DynamicResource ResourceKey=isSMTPConnected}" Height="190" Margin="10,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="489"/>
+                        <Button x:Name="b_connect_SMTP" Content="Connect" HorizontalAlignment="Left" Margin="424,5,0,0" VerticalAlignment="Top" Width="75" Click="b_connect_SMTP_Click" RenderTransformOrigin="0.558,-0.35" Height="21"/>
+                        <Button x:Name="b_send" Content="Send" HorizontalAlignment="Left" IsEnabled="{DynamicResource ResourceKey=isSMTPConnected}" Margin="424,67,0,0" VerticalAlignment="Top" Width="75" Click="b_send_SMTP_Click" Height="18"/>
+                        <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" Margin="10,67,0,0" TextWrapping="Wrap" Text="Sujet :" VerticalAlignment="Top" Width="100" Height="18"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="POP">
+                    <Grid>
+                        <TextBlock x:Name="textBlock4" TextWrapping="Wrap" Text="Nom du serveur" Width="100" Margin="10,6,399,264" RenderTransformOrigin="0.76,1.5"/>
+                        <TextBox x:Name="textBox_nom_serveur_POP" HorizontalAlignment="Left" Height="20" Margin="110,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                        <TextBlock x:Name="textBlock6" HorizontalAlignment="Left" Margin="10,31,0,0" TextWrapping="Wrap" Text="Connexion" VerticalAlignment="Top" Width="100" Height="20"/>
+                        <ComboBox x:Name="comboBox_type_connection_POP" Width="120" ItemsSource="{StaticResource POPPortString}" SelectedValuePath="ValuePort" DisplayMemberPath="ValueString" SelectedValue="{Binding typePortPOP}" SelectedIndex="0" Margin="110,31,279,239"/>
+                        <Button x:Name="b_connect_POP" Content="Connect" HorizontalAlignment="Left" Margin="424,6,0,0" VerticalAlignment="Top" Width="75" Click="button_connect_POP_Click"/>
+                        <ListView x:Name="listView_mails" Margin="10,95,10,10" ItemsSource="{Binding Source=mailList}" IsEnabled="{DynamicResource ResourceKey=isPOPConnected}" ItemTemplate="{StaticResource MailListTemplate}" >
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="UID" Width="30" DisplayMemberBinding="{Binding UID}" />
+                                    <GridViewColumn Header="Auteur" Width="170" DisplayMemberBinding="{Binding auteur}" />
+                                    <GridViewColumn Header="Sujet" Width="181" DisplayMemberBinding="{Binding sujet}" />
+                                    <GridViewColumn Header="Date" Width="50"  DisplayMemberBinding="{Binding date}" />
+                                    <GridViewColumn Header="Taille" Width="50"  DisplayMemberBinding="{Binding taille}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button x:Name="b_lireMail" Content="Lire" HorizontalAlignment="Left" IsEnabled="{DynamicResource ResourceKey=isPOPConnected}" Margin="10,70,0,0" VerticalAlignment="Top" Width="75" Click="b_lireMail_Click"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+    </DockPanel>
+</Window>

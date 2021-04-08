@@ -1,0 +1,20 @@
+﻿<Window x:Class="Webmailer.MailForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Webmailer"
+        mc:Ignorable="d"
+        Title="MailForm" Height="292.437" Width="549.58" Background="Silver" ResizeMode="NoResize">
+    <Grid>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="23,33,0,0" TextWrapping="Wrap" Text="Cc : " VerticalAlignment="Top" Height="20" Width="49"/>
+        <TextBox x:Name="textBox_cc" HorizontalAlignment="Left" Height="23" Margin="77,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="438" IsEnabled="False"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="23,58,0,0" TextWrapping="Wrap" Text="Sujet : " VerticalAlignment="Top" Height="22" Width="54"/>
+        <TextBox x:Name="textBox_sujet" HorizontalAlignment="Left" Height="23" Margin="77,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="438" IsEnabled="False"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="23,85,0,0" TextWrapping="Wrap" Text="Date : " VerticalAlignment="Top" Height="23" Width="49"/>
+        <TextBox x:Name="textBox_date" HorizontalAlignment="Left" Height="23" Margin="77,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="438" IsEnabled="False"/>
+        <GroupBox x:Name="groupBox" Header="Header" HorizontalAlignment="Left" VerticalAlignment="Top" Height="111" Width="522" Margin="10,10,0,0"/>
+        <TextBox x:Name="textBox_mail" HorizontalAlignment="Left" Height="129" Margin="10,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="522" IsEnabled="False"/>
+
+    </Grid>
+</Window>
